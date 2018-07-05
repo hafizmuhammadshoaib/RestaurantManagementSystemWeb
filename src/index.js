@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import Routing from './Routing';
 import registerServiceWorker from './registerServiceWorker';
-
-ReactDOM.render(<App />, document.getElementById('root'));
+import {Provider} from 'react-redux';
+import {store}from './Store/index';
+import Loader from "./Component/Loader";
+import Error from "./Component/Error";
+ReactDOM.render(<Provider store={store} ><div><Loader /><Routing /><Error /></div></Provider>, document.getElementById('root'));
 registerServiceWorker();

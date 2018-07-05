@@ -17,6 +17,7 @@ export default class AuthActions {
   static SIGNOUT_PROG = "SIGNOUT_USER_PROG";
   static SIGNOUT_SUCC = "SIGNOUT_USER_SUCC";
   static SIGNOUT_ERROR = "SIGNOUT_USER_ERROR";
+  static HIDE_MODEL="HIDE_MODEL";
   static signUpUser(userPayload) {
     return {
       type: AuthActions.SIGNUP_PROG,
@@ -55,6 +56,11 @@ export default class AuthActions {
   static SignOutUser() {
     return{
       type:AuthActions.SIGNOUT_PROG
+    }
+  }
+  static disableModel(){
+    return {
+      type:AuthActions.HIDE_MODEL
     }
   }
 }

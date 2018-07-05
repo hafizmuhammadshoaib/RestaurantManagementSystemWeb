@@ -41,6 +41,9 @@ export default function AuthReducer(state = INITIAL_STATE, action) {
     case AuthActions.SIGNOUT_ERROR:
     return Object.assign({},state,{isLoading:false,isError:true,errorMsg:action.payload})
 
+    case AuthActions.HIDE_MODEL:
+    return Object.assign({},state,{isError:false,errorMsg:""});
+
     default:
     return state;
   }

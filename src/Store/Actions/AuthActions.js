@@ -36,6 +36,11 @@ export default class AuthActions {
       payload: message
     };
   }
+  static signOut(){
+    return{
+      type: AuthActions.SIGNOUT_PROG
+    }
+  }
   static signOutUserError(message) {
     return {
       type: AuthActions.SIGNOUT_ERROR,

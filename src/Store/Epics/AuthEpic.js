@@ -1,5 +1,7 @@
 import AuthActions from "../Actions/AuthActions";
 import { Observable } from "rxjs";
+import History from '../../Component/History';
+import {browser} from 'react-router-dom'
 import {createUser,updateUserProfile,checkUser,sigInWithEmailAndPass,signOutUser}from '../Firebase/firebaseAuth';
 import { retry } from "rxjs/operator/retry";
 
@@ -7,6 +9,7 @@ import { retry } from "rxjs/operator/retry";
     static createUserOnFirebase(action$){
         return action$.ofType(AuthActions.SIGNUP_PROG).switchMap(({payload})=>{
             return Observable.fromPromise(createUser(payload)).map((obj)=>{
+                
                 return{
                     type:AuthActions.UPDATE_USER_PRO,
                     payload:payload
@@ -39,6 +42,7 @@ import { retry } from "rxjs/operator/retry";
     static signInUserFromFirebase(action$){
         return action$.ofType(AuthActions.SIGNIN_PROG).switchMap(({payload})=>{
             return Observable.fromPromise(sigInWithEmailAndPass(payload)).map((obj)=>{
+                History.push("/home");
                 return{
                     type:AuthActions.SIGNIN_SUCC,
                     payload:obj.user
@@ -51,6 +55,8 @@ import { retry } from "rxjs/operator/retry";
     static singOutUserFromFirebase(action$){
         return action$.ofType(AuthActions.SIGNOUT_PROG).switchMap(()=>{
             return Observable.fromPromise(signOutUser()).map(()=>{
+                console.log("user is signout now");
+                // History.replace('/');
                 return {
                     type:AuthActions.SIGNOUT_SUCC,
                     payload:null,

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -13,16 +14,29 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/Inbox";
 import Person from "@material-ui/icons/Person";
 import Divider from "@material-ui/core/Divider";
+import AuthActions from "../Store/Actions/AuthActions";
+import Firebase from '../Store/Firebase/firebaseConfig';
 
-export default class NavBar extends Component {
-  
+class NavBar extends Component {
+  constructor(props){
+    super(props);
+    this.state= {
+      openDrawer: false,
+    };
+  }
+  toggleDrawer = () =>{
+    this.setState({openDrawer: !this.state.openDrawer});
+  }
+  signOut = () =>{
+    this.props.signOut();
+  }
   render() {
     return (
       <div>
-        <AppBar position="static" style={{ backgroundColor: "#E53935" }}>
+        <AppBar position="static" style={{ backgroundColor: "#1f1f1f" }}>
           <Toolbar>
             <IconButton
-              onClick={()=>this.props.toggleDrawer(true)}
+              onClick={this.toggleDrawer}
               style={{
                 marginLeft: -12,
                 marginRight: 20
@@ -33,24 +47,30 @@ export default class NavBar extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" style={{ flex: 1 }}>
-              Blood App
+              Restaurent Managment System
             </Typography>
-            <Button
-              style={{ float: "right" }}
-              color="inherit"
-              onClick={this.props.signOut}
-            >
-              SignOut
-            </Button>
+              {
+                (this.props.user)?(
+                  <Button
+                    style={{ float: "right" }}
+                    color="inherit"
+                    onClick={this.signOut}
+                  >
+                    SignOut
+                  </Button>
+                ):
+                null
+              }
+            
           </Toolbar>
         </AppBar>
 
-        <Drawer open={this.props.openDrawer} onClose={()=>this.props.toggleDrawer(false)}>
+        <Drawer open={this.state.openDrawer} onClose={this.toggleDrawer}>
           <div
             tabIndex={0}
             role="button"
-            onClick={()=>this.props.toggleDrawer(false)}
-            onKeyDown={()=>this.props.toggleDrawer(false)}
+            onClick={this.toggleDrawer}
+            onKeyDown={this.toggleDrawer}
           >
             <List component="nav">
               <ListItem>
@@ -63,9 +83,9 @@ export default class NavBar extends Component {
               </ListItem>
             </List>
             <Divider />
-            {["Home", "Donate Blood", "Need Donor"].map(value => {
+            {["Home", "Donate Blood", "Need Donor"].map((value, i) => {
               return (
-                <ListItem
+                <ListItem key={i}
                   onClick={() => {
                     this.props.listHandler(value);
                   }}
@@ -80,3 +100,19 @@ export default class NavBar extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    user: state.AuthReducer.user
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    signOut : () => dispatch(AuthActions.signOut())
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NavBar);
+

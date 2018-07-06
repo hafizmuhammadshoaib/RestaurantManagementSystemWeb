@@ -28,7 +28,7 @@ componentWillReceiveProps(nextProps){
   render() {
     // (this.props.isError)?()=>{console.log("true");this.modalHandler(true)}:()=>{console.log("false");this.modalHandler(false)};
     return (
-      <Grid container direction="row" justify="center" style={{ padding: 50 }}>
+      <Grid container direction="row" justify="center" style={{}}>
         <Grid item xs={8}>
           <Modal
             aria-labelledby="simple-modal-title"

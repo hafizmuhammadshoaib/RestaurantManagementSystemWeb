@@ -12,11 +12,24 @@ import Fade from "@material-ui/core/Fade";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
+import History from '../../Component/History';
+
+const styles = {
+  signInForm: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: '70vh',
+
+  }
+}
+
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = { emailInput: "", passInput: "", modalState: false };
+    // console.log("window: " + window.location.replace("/home"));
   }
   inputHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -36,7 +49,8 @@ class SignIn extends Component {
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.user) {
-      // this.props.history.replace("/home");
+      this.props.history.replace("/home");
+      // History.replace("/home");
       console.log("auth completed")
     } 
     if(nextProps.isError){
@@ -60,33 +74,10 @@ class SignIn extends Component {
 
   render() {
     return (
-      <div>
-        <AppBar
-          position="static"
-          color="default"
-          style={{ backgroundColor: "#E53935" }}
-        >
-          <Toolbar>
-            <Typography
-              variant="title"
-              color="inherit"
-              style={{ color: "#FFF" }}
-            >
-              Blood App
-            </Typography>
-          </Toolbar>
-        </AppBar>
-   
-
-
-
-
-
-        
-
+      <div style={styles.signInForm}>
         <Grid style={{}} container direction="column" alignItems="center">
           <Grid container direction="row" justify="center">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={10} md={6}>
               <TextField
                 required
                 fullWidth
@@ -104,7 +95,7 @@ class SignIn extends Component {
 
           
           <Grid container direction="row" justify="center">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={10} md={6}>
               <TextField
                 required
                 fullWidth
@@ -124,8 +115,9 @@ class SignIn extends Component {
 
           
           <Grid container direction="row" justify="center">
-            <Grid item xs={1} md={1}>
+            <Grid>
               <Button
+                style={{marginTop: "20px"}}
                 variant="outlined"
                 color="primary"
                 onClick={this.signInHandler}
@@ -150,7 +142,9 @@ class SignIn extends Component {
               align="center"
               style={{ color: "blue", padding: "20px" }}
             >
+            <span style={{cursor: "pointer"}}>
               Don't have an account? SignUp here
+            </span>
             </Typography>
           </a>
         </Grid>

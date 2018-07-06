@@ -8,6 +8,16 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+const styles = {
+  signInForm: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: '70vh',
+
+  }
+}
+
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -42,25 +52,9 @@ class SignUp extends Component {
   render(){
     // console.log(this.props.user);
     return (
-      <div>
-       <AppBar
-          position="static"
-          color="default"
-          style={{ backgroundColor: "#E53935" }}
-        >
-          <Toolbar>
-            <Typography
-              variant="title"
-              color="inherit"
-              style={{ color: "#FFF" }}
-            >
-              Blood App
-            </Typography>
-          </Toolbar>
-        </AppBar>
-         
+      <div style= {styles.signInForm}>         
           <Grid container  direction="row" justify="center" >
-          <Grid  item xs={12} md={6} >
+          <Grid  item xs={10} md={6} >
             <TextField
               required
               fullWidth
@@ -79,7 +73,7 @@ class SignUp extends Component {
        
          
            <Grid container  direction="row" justify="center" >
-          <Grid  item xs={12} md={6} >
+          <Grid  item xs={10} md={6} >
             <TextField
               required
               fullWidth
@@ -99,7 +93,7 @@ class SignUp extends Component {
         
           
           <Grid container  direction="row" justify="center" >
-          <Grid item xs={12} md={6}>
+          <Grid item xs={10} md={6}>
             <TextField
               required
               fullWidth
@@ -120,7 +114,7 @@ class SignUp extends Component {
         
           
           <Grid container  direction="row" justify="center" >
-          <Grid item xs={1} md={1}>
+          <Grid >
             <Button
               variant="outlined"
               color="secondary"
@@ -140,7 +134,9 @@ class SignUp extends Component {
               this.props.history.replace("/");
             }}  >
           <Typography variant="body1"  align="center" style={{color:"red",padding:"20px"}} >
-        Already have an account? SignIn here
+        <span style={{cursor: "pointer"}}>
+          Already have an account? SignIn here
+        </span>
       </Typography>
 
           

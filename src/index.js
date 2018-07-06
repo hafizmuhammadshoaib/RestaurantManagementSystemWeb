@@ -6,5 +6,13 @@ import {Provider} from 'react-redux';
 import {store}from './Store/index';
 import Loader from "./Component/Loader";
 import Error from "./Component/Error";
-ReactDOM.render(<Provider store={store} ><div><Loader /><Routing /><Error /></div></Provider>, document.getElementById('root'));
+import NavBar from "./Component/NavBar";
+ReactDOM.render(<Provider store={store} >
+<div>
+    <Loader />
+    <NavBar />
+    <Routing />
+    <Error />
+</div>
+</Provider>, document.getElementById('root'));
 registerServiceWorker();

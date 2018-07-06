@@ -20,6 +20,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/LocalDining';
 import DraftsIcon from '@material-ui/icons/Tab';
+import Kitchen from '../Kitchen/Kitchen'
 
 const styles={
   listText:{
@@ -34,6 +35,9 @@ const styles={
 class Home extends Component {
   constructor(props) {
     super(props);
+    this.state={
+      tables:true
+    }
 
   }
   componentWillReceiveProps(nextProps) {
@@ -43,6 +47,15 @@ class Home extends Component {
       this.props.history.replace('/');
     }
   }
+  clickedHandler=(value)=>{
+    if(value=="tables"){
+      this.setState({tables:true})
+      
+    }
+    else{
+      this.setState({tables:false})
+    }
+  }
 
   render() {
     return (
@@ -50,15 +63,15 @@ class Home extends Component {
         <Grid container direction="row" style={{}} >
           <Grid style={{ border: "2px solid", height: "90vh",backgroundColor:"#3d3d3d" }} item xs={4} md={3} >
             <List component="nav" >
-              <ListItem button >
+              <ListItem button onClick={()=>this.clickedHandler("kitchen")} >
                 <ListItemIcon>
                   <InboxIcon style={{marginRight:"0px", color:"#8e908e"}}/>
                 </ListItemIcon>
                 {/* <ListItemText primary="Kitchen" textDense="#8e908e" style={{color:"#8e908e"}}/> */}
-                <p style={styles.listText}>Kitchen</p>
+                <p  style={styles.listText}>Kitchen</p>
               </ListItem>
               <Divider />
-              <ListItem button>
+              <ListItem button onClick={()=>this.clickedHandler("tables")}>
                 <ListItemIcon>
                   <DraftsIcon style={{marginRight:"0px", color:"#8e908e"}} />
                 </ListItemIcon>
@@ -68,7 +81,11 @@ class Home extends Component {
           </Grid>
           <Grid item xs={8} md={9} style={{ border: "2px solid"}}>
             {
-              this.props.children
+              (this.state.tables)?console.log("table"):<Kitchen />
+              
+              
+              
+              
             }
           </Grid>
         </Grid>

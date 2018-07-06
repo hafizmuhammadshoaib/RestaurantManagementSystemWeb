@@ -2,11 +2,13 @@ import DatabaseActions from '../Actions/DatabaseActions';
 
 
 
+
 const INITIAL_STATE={
     donorList:[],
     isLoading:false,
     isError:false,
-    errorMsg:""
+    errorMsg:"",
+    
 }
 export default function DatabaseReducer(state=INITIAL_STATE,action){
     switch(action.type){
@@ -24,6 +26,8 @@ export default function DatabaseReducer(state=INITIAL_STATE,action){
        case DatabaseActions.GET_DONOR_ERR:
        return Object.assign({},state,{isLoading:false,isError:true,errorMsg:action.payload})
        
+
+      
         default:
         return state;
     }

@@ -31,6 +31,25 @@ export function getData(){
         })
     })
 }
+
+
+
+
+
+
+
+
+export function getOrders(user){
+  return new Promise((res,rej)=>{
+    console.log(user.uid);
+    fire.child(`Restaurants/${user.uid}/Kitchen/Orders`).once("value",(snapshot)=>{
+      res(snapshotToArray(snapshot))
+    })
+  })
+}
+
+
+
 function snapshotToArray(snapshot) {
     var returnArr = [];
 

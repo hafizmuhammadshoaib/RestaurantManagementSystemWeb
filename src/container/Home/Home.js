@@ -13,7 +13,7 @@ import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
 import Firebase from '../../Store/Firebase/firebaseConfig';
 import Kitchen from '../Kitchen/Kitchen';
-import Tables from '../Tables/Table';
+import Table from '../Tables/Table';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -24,8 +24,10 @@ import InboxIcon from '@material-ui/icons/LocalDining';
 import DraftsIcon from '@material-ui/icons/Tab';
 // import Kitchen from '../Kitchen/Kitchen'
 import Circular from "../../Component/Circular";
-import Table from "../Tables/Table";
+// import Table from "../Tables/Table";
 import Bill from "../Bill/Bill";
+import Menu from '../Menu/Menu';
+import SpaceBar from '@material-ui/icons/SpaceBar';
 
 const styles = {
   listText: {
@@ -47,7 +49,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      component: "table",
+      component: 'table',
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -59,7 +61,7 @@ class Home extends Component {
   }
 
   clicked = (flag) => {
-    this.setState({ component: flag })
+    this.setState({ component: flag });
   }
 
   render() {
@@ -81,30 +83,33 @@ class Home extends Component {
                 </ListItemIcon>
                 <p style={styles.listText}>Tables</p>
               </ListItem>
-              <ListItem button onClick={() => this.clicked("bills")}>
+              <Divider />              
+              <ListItem button onClick={() => this.clicked("menu")}>
                 <ListItemIcon>
-                  <DraftsIcon style={{ marginRight: "0px", color: "#8e908e" }} />
+                  <SpaceBar style={{ marginRight: "0px", color: "#8e908e" }} />
                 </ListItemIcon>
-                <p style={styles.listText}>Bills</p>
+                <p style={styles.listText}>Menu</p>
+              </ListItem>
+              <Divider />
+              <ListItem button onClick={() => this.clicked("bill")}>
+                <ListItemIcon>
+                  <SpaceBar style={{ marginRight: "0px", color: "#8e908e" }} />
+                </ListItemIcon>
+                <p style={styles.listText}>Bill</p>
               </ListItem>
             </List>
           </Grid>
           <Grid item xs={8} md={9} style={{ border: "2px solid", overflowY: "scroll", height: "90vh" }}>
-
-
             {
               this.state.component === "menu" ?
-                "<Menu />"
+                <Menu />
                 :
                 this.state.component === "table" ?
                   <Table />
-                  : this.state.component === "kitchen" ?
-                    <Kitchen /> : <Bill />
+                  :this.state.component==="kitchen"?
+                  <Kitchen />:
+                  <Bill />
             }
-
-
-
-
           </Grid>
         </Grid>
       </div>

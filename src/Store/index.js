@@ -8,14 +8,17 @@ import {createLogger} from 'redux-logger';
 import AuthReducer from "./Reducers/AuthRducer";
 import KitchenReducer from "./Reducers/KitchenReducer";
 import TableReducer from "./Reducers/TableReducer";
+import MenuReducer from "./Reducers/MenuReducer";
 // epics
 import { AuthEpic } from "./Epics/AuthEpic";
 import {KitchenEpic} from "./Epics/KitchenEpic";
 import { TableEpic } from "./Epics/TableEpic";
+import { MenuEpic } from "./Epics/MenuEpic";
 
 
 import AuthActions from "./Actions/AuthActions";
 import { loadState, saveState } from "../PersistState";
+import { Menu } from "@material-ui/core";
 
 // const persistedState = loadState();
 const loggerMiddleware = createLogger();
@@ -23,7 +26,8 @@ const loggerMiddleware = createLogger();
 const rootReducer = combineReducers({
   TableReducer,
   AuthReducer,
-  KitchenReducer
+  KitchenReducer,
+  MenuReducer,
 
 });
 
@@ -34,7 +38,8 @@ export const rootEpic = combineEpics(
   AuthEpic.authStateChanged,
   AuthEpic.signInUserFromFirebase,
   AuthEpic.singOutUserFromFirebase,
-  KitchenEpic.getKitchenOrdersFromFirebase
+  KitchenEpic.getKitchenOrdersFromFirebase,
+  MenuEpic.getMenuDataReq
   // more epics functions go here
 );
 

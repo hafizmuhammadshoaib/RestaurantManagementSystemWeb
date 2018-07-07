@@ -43,6 +43,13 @@ export function getOrders(user){
 }
 
 
+export function getMenuData(user){
+  return new Promise((res, rej)=>{
+    fire.child(`Restaurants/${user.uid}/Menu`).once("value", (snapshot)=>{
+      res(snapshotToArray(snapshot));
+    })
+  })
+}
 
 export function getTablesData(user){
   return new Promise((res, rej)=>{

@@ -31,6 +31,17 @@ export function getData(){
         })
     })
 }
+
+
+export function getTablesData(user){
+  return new Promise((res, rej)=>{
+    fire.child(`Restaurants/${user.uid}/Tables`).once("value", (snapshot)=>{
+      res(snapshotToArray(snapshot));
+    })
+  })
+}
+
+
 function snapshotToArray(snapshot) {
     var returnArr = [];
 

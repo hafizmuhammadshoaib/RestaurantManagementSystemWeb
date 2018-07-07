@@ -7,6 +7,8 @@ export default class AuthActions {
   static SIGNUP_ERROR = "SIGNUP_ERROR";
   static SIGNUP_SUCC = "SIGNUP_SUCC";
 
+
+
   // static SIGNUP_PROG = "SIGNUP_PROG";
   // static SIGNUP_SUCC = "SIGNUP_SUCC";
 

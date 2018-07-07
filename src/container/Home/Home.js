@@ -12,6 +12,8 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
 import Firebase from '../../Store/Firebase/firebaseConfig';
+import Kitchen from '../Kitchen/Kitchen';
+import Tables from '../Tables/Table';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -20,6 +22,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/LocalDining';
 import DraftsIcon from '@material-ui/icons/Tab';
+import Circular from "../../Component/Circular";
 
 const styles={
   listText:{
@@ -28,13 +31,21 @@ const styles={
     paddingLeft: '15px',
     color: 'white',
     fontWeight: 'bold'
+  },
+  circularStyle:{
+    height: '87vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 }
 
 class Home extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      tables: true,
+    }
   }
   componentWillReceiveProps(nextProps) {
     console.log("user", nextProps.user);
@@ -43,22 +54,23 @@ class Home extends Component {
       this.props.history.replace('/');
     }
   }
-
+  clicked = (flag) =>{
+    this.setState({tables: flag})
+  }
   render() {
     return (
       <div>
         <Grid container direction="row" style={{}} >
           <Grid style={{ border: "2px solid", height: "90vh",backgroundColor:"#3d3d3d" }} item xs={4} md={3} >
             <List component="nav" >
-              <ListItem button >
+              <ListItem button onClick = {()=>this.clicked(false)}>
                 <ListItemIcon>
                   <InboxIcon style={{marginRight:"0px", color:"#8e908e"}}/>
                 </ListItemIcon>
-                {/* <ListItemText primary="Kitchen" textDense="#8e908e" style={{color:"#8e908e"}}/> */}
                 <p style={styles.listText}>Kitchen</p>
               </ListItem>
               <Divider />
-              <ListItem button>
+              <ListItem button onClick = {()=>this.clicked(true)}>
                 <ListItemIcon>
                   <DraftsIcon style={{marginRight:"0px", color:"#8e908e"}} />
                 </ListItemIcon>
@@ -67,9 +79,20 @@ class Home extends Component {
             </List>
           </Grid>
           <Grid item xs={8} md={9} style={{ border: "2px solid"}}>
-            {
-              this.props.children
-            }
+              {
+                this.state.tables?
+                  <Tables/>
+                :
+                  <Kitchen/>
+              }
+              {
+                this.props.isLoading?
+                <div style = {styles.circularStyle}>
+                  <Circular />
+                </div>
+                :
+                null
+              }
           </Grid>
         </Grid>
       </div>
@@ -80,6 +103,7 @@ const mapStateToProps = state => {
   console.log(state);
   return {
     user: state.AuthReducer.user,
+    isLoading: state.TableReducer.isLoading,
   };
 };
 const mapDispatchToProps = dispatch => {

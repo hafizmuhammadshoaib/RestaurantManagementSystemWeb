@@ -6,36 +6,34 @@ import {createLogger} from 'redux-logger';
 
 // reducers
 import AuthReducer from "./Reducers/AuthRducer";
-import DatabaseReducer from "./Reducers/DatabaseReducer";
 import KitchenReducer from "./Reducers/KitchenReducer";
+import TableReducer from "./Reducers/TableReducer";
 // epics
 import { AuthEpic } from "./Epics/AuthEpic";
-import { DatabaseEpic } from "./Epics/DatabaseEpic";
 import {KitchenEpic} from "./Epics/KitchenEpic";
+import { TableEpic } from "./Epics/TableEpic";
+
+
 import AuthActions from "./Actions/AuthActions";
-import DatabaseActions from "./Actions/DatabaseActions";
 import { loadState, saveState } from "../PersistState";
 
-const loggerMiddleware = createLogger();
-
 // const persistedState = loadState();
-
+const loggerMiddleware = createLogger();
 // Application Reducers
 const rootReducer = combineReducers({
+  TableReducer,
   AuthReducer,
-  DatabaseReducer,
   KitchenReducer
 
 });
 
 export const rootEpic = combineEpics(
+  TableEpic.getTablesDataReq,
   AuthEpic.createUserOnFirebase,
   AuthEpic.updateUserProfile,
   AuthEpic.authStateChanged,
   AuthEpic.signInUserFromFirebase,
   AuthEpic.singOutUserFromFirebase,
-  DatabaseEpic.addDonorOnFirebase,
-  DatabaseEpic.getDonorFromFirebae,
   KitchenEpic.getKitchenOrdersFromFirebase
   // more epics functions go here
 );
@@ -46,9 +44,8 @@ const createStoreWithMiddleware = applyMiddleware(epicMiddleware,loggerMiddlewar
 
 export let store = createStore(
   rootReducer,
-  
   createStoreWithMiddleware,
 );
 store.subscribe(() => {
-  saveState(store.getState());
+  // saveState(store.getState());
 });

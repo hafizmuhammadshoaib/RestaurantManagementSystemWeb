@@ -13,7 +13,7 @@ import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
 import Firebase from '../../Store/Firebase/firebaseConfig';
 import Kitchen from '../Kitchen/Kitchen';
-import Tables from '../Tables/Table';
+import Table from '../Tables/Table';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -24,16 +24,18 @@ import InboxIcon from '@material-ui/icons/LocalDining';
 import DraftsIcon from '@material-ui/icons/Tab';
 // import Kitchen from '../Kitchen/Kitchen'
 import Circular from "../../Component/Circular";
+import Menu from '../Menu/Menu';
+import SpaceBar from '@material-ui/icons/SpaceBar';
 
-const styles={
-  listText:{
+const styles = {
+  listText: {
     fontSize: '17px',
     fontFamily: 'sans-serif',
     paddingLeft: '15px',
     color: 'white',
     fontWeight: 'bold'
   },
-  circularStyle:{
+  circularStyle: {
     height: '87vh',
     display: 'flex',
     justifyContent: 'center',
@@ -45,7 +47,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tables: true,
+      component: 'table',
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -56,47 +58,49 @@ class Home extends Component {
     }
   }
 
-  clicked = (flag) =>{
-    this.setState({tables: flag})
+  clicked = (flag) => {
+    this.setState({ component: flag });
   }
 
   render() {
     return (
       <div>
         <Grid container direction="row"  >
-          <Grid style={{ border: "2px solid",backgroundColor:"#3d3d3d" }} item xs={4} md={3} >
+          <Grid style={{ border: "2px solid", backgroundColor: "#3d3d3d" }} item xs={4} md={3} >
             <List component="nav" >
-              <ListItem button onClick = {()=>this.clicked(false)}>
+              <ListItem button onClick={() => this.clicked("kitchen")}>
                 <ListItemIcon>
-                  <InboxIcon style={{marginRight:"0px", color:"#8e908e"}}/>
+                  <InboxIcon style={{ marginRight: "0px", color: "#8e908e" }} />
                 </ListItemIcon>
                 <p style={styles.listText}>Kitchen</p>
               </ListItem>
               <Divider />
-              <ListItem button onClick = {()=>this.clicked(true)}>
+              <ListItem button onClick={() => this.clicked("table")}>
                 <ListItemIcon>
-                  <DraftsIcon style={{marginRight:"0px", color:"#8e908e"}} />
+                  <DraftsIcon style={{ marginRight: "0px", color: "#8e908e" }} />
                 </ListItemIcon>
                 <p style={styles.listText}>Tables</p>
               </ListItem>
+              <Divider />              
+              <ListItem button onClick={() => this.clicked("menu")}>
+                <ListItemIcon>
+                  <SpaceBar style={{ marginRight: "0px", color: "#8e908e" }} />
+                </ListItemIcon>
+                <p style={styles.listText}>Menu</p>
+              </ListItem>
+              <Divider />
             </List>
           </Grid>
-          <Grid item xs={8} md={9} style={{ border: "2px solid",overflowY:"scroll",height:"90vh"}}>
-
-              {
-                this.state.tables?
-                  <Tables/>
+          <Grid item xs={8} md={9} style={{ border: "2px solid", overflowY: "scroll", height: "90vh" }}>
+            {
+              this.state.component === "menu" ?
+                <Menu />
                 :
-                  <Kitchen/>
-              }
-              {
-                this.props.isLoading?
-                <div style = {styles.circularStyle}>
-                  <Circular />
-                </div>
-                :
-                null
-              }
+                this.state.component === "table" ?
+                  <Table />
+                  :
+                  <Kitchen />
+            }
           </Grid>
         </Grid>
       </div>

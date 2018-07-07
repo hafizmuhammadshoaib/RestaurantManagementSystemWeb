@@ -36,7 +36,6 @@ class NavBar extends Component {
         <AppBar position="static" style={{ backgroundColor: "#1f1f1f" }}>
           <Toolbar>
             <IconButton
-              onClick={this.toggleDrawer}
               style={{
                 marginLeft: -12,
                 marginRight: 20
@@ -64,38 +63,6 @@ class NavBar extends Component {
             
           </Toolbar>
         </AppBar>
-
-        <Drawer open={this.state.openDrawer} onClose={this.toggleDrawer}>
-          <div
-            tabIndex={0}
-            role="button"
-            onClick={this.toggleDrawer}
-            onKeyDown={this.toggleDrawer}
-          >
-            <List component="nav">
-              <ListItem>
-                <ListItemIcon>
-                  <Person />
-                </ListItemIcon>
-                <Typography variant="title" gutterBottom>
-                  {this.props.userName}
-                </Typography>
-              </ListItem>
-            </List>
-            <Divider />
-            {["Home", "Donate Blood", "Need Donor"].map((value, i) => {
-              return (
-                <ListItem key={i}
-                  onClick={() => {
-                    this.props.listHandler(value);
-                  }}
-                >
-                  <ListItemText primary={value} />
-                </ListItem>
-              );
-            })}
-          </div>
-        </Drawer>
       </div>
     );
   }

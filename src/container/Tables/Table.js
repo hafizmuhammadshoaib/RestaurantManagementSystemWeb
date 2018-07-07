@@ -37,6 +37,12 @@ const style = {
   seatWrapper: {
     display: "flex",
     alignItems: "center",
+  },
+  circularStyle: {
+    height: '87vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 }
 
@@ -49,7 +55,7 @@ class Tables extends Component {
     // console.log("window: " + window.location.replace("/home"));
   }
   componentDidMount() {
-    if(this.props.tablesData.length === 0){
+    if (this.props.tablesData.length === 0) {
       this.props.loadTables(this.props.user);
     }
     // Firebase.database().ref(`/Restaurants/OcPCTJHEU3MZKu619Ry8OdhhaVg2/Tables`).once("value", (snapshot)=>{
@@ -62,54 +68,61 @@ class Tables extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Grid container direction="row" style={{ display: "flex", justifyContent: "space-around" }} >
-          {
-            this.props.tablesData.map((data, i) => {
-              return (
-                <Grid item xs={10} md={3} key={i}>
-                  <Paper style={{ margin: "10px" }} className={classes.root} elevation={1}>
-                    <Typography style={{ textAlign: 'center', fontWeight:"bold" }} component="span">
-                      {data.status}
-                    </Typography>
-                    <Typography style={{ textAlign: 'center' }} variant="headline" component="h1">
-                      {data.key}
-                    </Typography>
-                    <br />                    
-                    <Divider style={{marginBottom:"5px"}}/>
-                    <br />
-                    <div style={style.seatsDivWrapper}>
-                      <div style={style.seatWrapper}>
-                        <EventSeat style={{ fontSize: 40 }} />
-                      </div>
-                      <div style={{ textAlign: 'center' }}>
-                        <Typography variant="caption" component="h5">
-                          Total
+        {
+          this.props.isLoading ?
+            <div style={style.circularStyle}>
+              <Circular />
+            </div>
+            :
+            <Grid container direction="row" style={{ display: "flex", justifyContent: "space-around" }} >
+              {
+                this.props.tablesData.map((data, i) => {
+                  return (
+                    <Grid item xs={10} md={3} key={i}>
+                      <Paper style={{ margin: "10px" }} className={classes.root} elevation={1}>
+                        <Typography style={{ textAlign: 'center', fontWeight: "bold" }} component="span">
+                          {data.status}
                         </Typography>
-                        <Typography variant="title" component="h5">
-                          {`Seats ${data.seats}`}
+                        <Typography style={{ textAlign: 'center' }} variant="headline" component="h1">
+                          {data.key}
                         </Typography>
-                      </div>
-                    </div>
-                    <br />
-                    <div style={style.seatsDivWrapper}>
-                      <div style={style.seatWrapper}>
-                        <Timer style={{ fontSize: 40 }} />
-                      </div>
-                      <div style={{ textAlign: 'center' }}>
-                        <Typography variant="caption" component="h5">
-                          Free Since
+                        <br />
+                        <Divider style={{ marginBottom: "5px" }} />
+                        <br />
+                        <div style={style.seatsDivWrapper}>
+                          <div style={style.seatWrapper}>
+                            <EventSeat style={{ fontSize: 40 }} />
+                          </div>
+                          <div style={{ textAlign: 'center' }}>
+                            <Typography variant="caption" component="h5">
+                              Total
                         </Typography>
-                        <Typography variant="title" component="h5">
-                          time
+                            <Typography variant="title" component="h5">
+                              {`Seats ${data.seats}`}
+                            </Typography>
+                          </div>
+                        </div>
+                        <br />
+                        <div style={style.seatsDivWrapper}>
+                          <div style={style.seatWrapper}>
+                            <Timer style={{ fontSize: 40 }} />
+                          </div>
+                          <div style={{ textAlign: 'center' }}>
+                            <Typography variant="caption" component="h5">
+                              Free Since
                         </Typography>
-                      </div>
-                    </div>
-                  </Paper>
-                </Grid>
-              )
-            })
-          }
-        </Grid>
+                            <Typography variant="title" component="h5">
+                              time
+                        </Typography>
+                          </div>
+                        </div>
+                      </Paper>
+                    </Grid>
+                  )
+                })
+              }
+            </Grid>
+        }
       </div>
     );
   }
@@ -118,7 +131,7 @@ const mapStateToProps = state => {
   console.log(state);
   return {
     user: state.AuthReducer.user,
-    isLoading: state.AuthReducer.isLoading,
+    isLoading: state.TableReducer.isLoading,
     isError: state.AuthReducer.isError,
     errorMsg: state.AuthReducer.errorMsg,
     tablesData: state.TableReducer.tablesData

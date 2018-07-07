@@ -63,8 +63,8 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Grid container direction="row" style={{}} >
-          <Grid style={{ border: "2px solid", height: "90vh",backgroundColor:"#3d3d3d" }} item xs={4} md={3} >
+        <Grid container direction="row"  >
+          <Grid style={{ border: "2px solid",backgroundColor:"#3d3d3d" }} item xs={4} md={3} >
             <List component="nav" >
               <ListItem button onClick = {()=>this.clicked(false)}>
                 <ListItemIcon>
@@ -81,7 +81,7 @@ class Home extends Component {
               </ListItem>
             </List>
           </Grid>
-          <Grid item xs={8} md={9} style={{ border: "2px solid"}}>
+          <Grid item xs={8} md={9} style={{ border: "2px solid",overflowY:"scroll",height:"90vh"}}>
 
               {
                 this.state.tables?

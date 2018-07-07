@@ -27,7 +27,7 @@ class Kitchen extends Component {
             <Grid container direction="row" spacing={16} justify="center" style={{ width: "98%" }} >
                 {this.props.orders.map((value, index) => {
 
-                    return <Grid item xs={10} md={9} key={index} justify="center"  >
+                    return <Grid item xs={10} md={9} key={index} >
                         <Paper elevation={1} style={{ padding: "10px", justifyContent: "center", backgroundColor: '#F8F9FA', overflowY: "hidden",textAlign:"center" }} >
                             <Typography component="h3" style={{ padding: "10px", backgroundColor: "#F0F1F2", }} >
                                 Order No :{value.key}
@@ -60,7 +60,7 @@ class Kitchen extends Component {
                                         console.log(value)
                                         return (
 
-                                            <tr>
+                                            <tr key={index}>
                                                 <td style={tableStyle}>{value.item}</td>
                                                 <td style={tableStyle}>{value.qty}</td>
                                                 <td style={tableStyle}>{value.status}</td>

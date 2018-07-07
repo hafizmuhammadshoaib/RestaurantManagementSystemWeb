@@ -17,8 +17,8 @@ class Kitchen extends Component {
     }
     componentDidMount() {
         console.log(this.props.user)
-        if (this.props.orders.length == 0)
-            this.props.getOrders(this.props.user)
+        // if (this.props.orders.length == 0)
+        //     this.props.getOrders(this.props.user)
     }
    
     render() {

@@ -29,7 +29,7 @@ class SignUp extends Component {
   }
   componentWillReceiveProps(nextProps){
       if(nextProps.user){
-          // this.props.history.replace('/home');
+          this.props.history.replace('/home');
           console.log("auth completed")
       }
       else{

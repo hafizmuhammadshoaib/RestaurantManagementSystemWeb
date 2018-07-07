@@ -36,7 +36,7 @@ class NavBar extends Component {
         <AppBar position="static" style={{ backgroundColor: "#1f1f1f" }}>
           <Toolbar>
             <IconButton
-              onClick={this.toggleDrawer}
+             
               style={{
                 marginLeft: -12,
                 marginRight: 20

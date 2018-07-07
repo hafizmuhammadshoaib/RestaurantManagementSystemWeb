@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import AuthActions from "../../Store/Actions/AuthActions";
 import TableActions from "../../Store/Actions/TableActions";
+import KitchenActions from "../../Store/Actions/KitchenActions";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
@@ -51,6 +52,7 @@ class Tables extends Component {
   componentDidMount() {
     if(this.props.tablesData.length === 0){
       this.props.loadTables(this.props.user);
+      this.props.getOrders(this.props.user);
     }
     // Firebase.database().ref(`/Restaurants/OcPCTJHEU3MZKu619Ry8OdhhaVg2/Tables`).once("value", (snapshot)=>{
     //   console.log(snapshot.val(), snapshot.key);
@@ -133,6 +135,7 @@ const mapDispatchToProps = dispatch => {
       return dispatch(AuthActions.checkUser());
     },
     loadTables: (user) => dispatch(TableActions.loadTables(user)),
+    getOrders: (user) => dispatch(KitchenActions.getOrders(user))
   };
 };
 export default withStyles(styles)(connect(
